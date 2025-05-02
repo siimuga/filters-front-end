@@ -3,10 +3,27 @@
     <div class="modal-content">
       <div class="modal-header filtermodal-header">
         <h1 class="modal-title fs-5" id="filterModalLabel">Filter</h1>
-        <button type="button" class="btn-close btn-close-white filtermodal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white filtermodal-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        MODAALI SISU
+
+        <div class="form-group division row" *ngFor="let criteria of criterias">
+
+          <div style="display: flex">
+            <div>
+              <select class="form-select" (change)="onTypeChange($event)">
+                <option *ngFor="let type of types" [selected]="type.name==criteria.type">{{ type.name }}</option>
+              </select>
+            </div>
+            <div style="margin-left: 3%">
+              <select class="form-select">
+                <option *ngFor="let condition of conditions" [selected]="condition.name==criteria.condition">{{ condition.name }}</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
       </div>
       <div class="modal-footer filtermodal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>

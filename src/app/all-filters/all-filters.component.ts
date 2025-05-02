@@ -4,6 +4,8 @@ import {AllFilters} from './module/all-filters';
 import {NgForOf, NgIf} from '@angular/common';
 import { Modal } from 'bootstrap';
 import {AddFilterComponent} from '../add-filter/add-filter.component';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-all-filters',
@@ -33,15 +35,17 @@ export class AllFiltersComponent implements OnInit {
     }
   }
 
-  public findAllFilters() {
-    this.apiService.findAllFilters().subscribe(
-      res=>{
+  private findAllFilters(): void {
+    this.apiService.findAllFilters().pipe(
+      catchError((err) => {
+        console.error('Failed to load filters', err);
+        return of([]);
+      })
+    ).subscribe(
+      (res) => {
         this.filters = res;
-      },
-      err=> {
-        alert("An error occurred")
       }
-    )
+    );
   }
 
 }
