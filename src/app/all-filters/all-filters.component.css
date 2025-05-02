@@ -17,19 +17,4 @@
   padding-bottom: 10px;
 }
 
-.filtermodal-footer {
-  justify-content: center;
-  background-color: #efefef;
-}
-
-.filtermodal-header {
-  background-color: #41aebd;
-  padding: 8px 12px;
-  color: white;
-}
-
-.filtermodal-close {
-  transform: scale(0.90);
-}
-
 

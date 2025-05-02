@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../shared/api.service";
 import {AllFilters} from './module/all-filters';
 import {NgForOf, NgIf} from '@angular/common';
+import { Modal } from 'bootstrap';
+import {AddFilterComponent} from '../add-filter/add-filter.component';
 
 @Component({
   selector: 'app-all-filters',
   imports: [
     NgIf,
-    NgForOf
+    NgForOf,
+    AddFilterComponent
   ],
   templateUrl: './all-filters.component.html',
   styleUrl: './all-filters.component.css'
@@ -20,6 +23,14 @@ export class AllFiltersComponent implements OnInit {
 
   ngOnInit() {
     this.findAllFilters();
+  }
+
+  openModal() {
+    const modalElement = document.getElementById('filterModal');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
   }
 
   public findAllFilters() {
