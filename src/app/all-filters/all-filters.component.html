@@ -1,1 +1,51 @@
-<p>all-filters works!</p>
+<p class="fs-2 fw-semibold text-center">Homepage of filters</p>
+
+<div *ngIf="filters.length===0"   class="fs-5 fw-semibold text-center">No filters to display</div>
+
+<div *ngIf="filters.length>0">
+
+  <div class="inserting p-b-10">
+    <button type="button" class="btn btn-primary">
+      Add filter
+    </button>
+  </div>
+  <div class="allfilters">
+    <table class="table table-hover table-display table-secondary">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Criterias</th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider">
+      <tr *ngFor="let filter of filters">
+        <th>{{ filter.seqNr }}</th>
+        <td>{{ filter.name }}</td>
+        <td>
+          <table class="table table-hover table-success table-striped-columns table-sm">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Type</th>
+              <th>Condition</th>
+              <th>Value</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr *ngFor="let criteria of filter.criteriaInfos">
+              <th>{{ criteria.seqNr }}</th>
+              <td class="min-w-75">{{ criteria.type }}</td>
+              <td>{{ criteria.condition }}</td>
+              <td>{{ criteria.value }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
