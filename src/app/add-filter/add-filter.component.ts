@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ApiService} from '../shared/api.service';
 import {FilterRequest} from '../shared/filterrequest';
 import {Type} from '../shared/type';
@@ -19,7 +19,7 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './add-filter.component.html',
   styleUrl: './add-filter.component.css'
 })
-export class AddFilterComponent implements OnInit  {
+export class AddFilterComponent  {
   model: FilterRequest = {
     name: '',
     criteriaRequests: []
@@ -45,14 +45,10 @@ export class AddFilterComponent implements OnInit  {
     console.log('Modal is closed');
   }
 
-  ngOnInit() {
-    this.loadInitialData();
-  }
-
   constructor(private apiService: ApiService) {
   }
 
-  private loadInitialData(): void {
+  loadInitialData(): void {
     this.findAllTypes();
   }
 

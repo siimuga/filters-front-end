@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from "../shared/api.service";
 import {AllFilters} from './module/all-filters';
 import {NgForOf, NgIf} from '@angular/common';
@@ -19,20 +19,28 @@ import {of} from 'rxjs';
 })
 export class AllFiltersComponent implements OnInit {
   filters: AllFilters[] = [];
+  showAddFilter :boolean = false;
 
   constructor(private apiService:ApiService) {
   }
+
+  @ViewChild(AddFilterComponent)
+  addFilterComponent!: AddFilterComponent;
 
   ngOnInit() {
     this.findAllFilters();
   }
 
   openModal() {
-    const modalElement = document.getElementById('filterModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
-    }
+    this.showAddFilter = true;
+    setTimeout(() => {
+      this.addFilterComponent.loadInitialData();
+      const modalEl = document.getElementById('filterModal');
+      if (modalEl) {
+        const bsModal = new Modal(modalEl);
+         bsModal.show();
+      }
+    });
   }
 
   private findAllFilters(): void {
