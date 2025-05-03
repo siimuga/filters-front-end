@@ -40,12 +40,12 @@
               </div>
               <div class="box-width">
                 <select class="form-select" (change)="onTypeChange($event, criteria)" [(ngModel)]="criteria.type" name="type">
-                  <option *ngFor="let type of types" [selected]="type.name==criteria.type">{{ type.name }}</option>
+                  <option *ngFor="let type of criteria.types" [selected]="type.name==criteria.type">{{ type.name }}</option>
                 </select>
               </div>
               <div class="ml-10 box-width">
-                <select class="form-select">
-                  <option *ngFor="let condition of conditions"
+                <select class="form-select" name="condition" (change)="onConditionChange($event, criteria)" >
+                  <option *ngFor="let condition of criteria.conditions"
                           [selected]="condition.name==criteria.condition">{{ condition.name }}
                   </option>
                 </select>
@@ -57,7 +57,6 @@
                        name="amount"
                        placeholder="Amount"
                        [(ngModel)]="criteria.value"
-                       #name="ngModel"
                        required
                 />
               </div>
@@ -69,7 +68,6 @@
                        name="title"
                        placeholder="Title"
                        [(ngModel)]="criteria.value"
-                       #name="ngModel"
                        required
                 />
               </div>
@@ -81,7 +79,6 @@
                        name="date"
                        placeholder="Date"
                        [(ngModel)]="criteria.value"
-                       #name="ngModel"
                        required
                 />
               </div>

@@ -24,11 +24,11 @@ export class AddFilterComponent implements OnInit  {
     name: '',
     criteriaRequests: []
   };
-  types: Type[] = [];
-  conditions: Condition[] = [];
   criterias: CriteriaRequest[] = [];
   defaultType: string = '';
   defaultCondition: string = '';
+  defaultTypes: Type[] = [];
+  defaultConditions: Condition[] = [];
 
   @ViewChild('filterModal') filterModalRef!: ElementRef;
 
@@ -63,15 +63,30 @@ export class AddFilterComponent implements OnInit  {
         return of([]);
       })
     ).subscribe((res) => {
-      this.types = res;
 
-      if (this.types.length > 0) {
-        this.findComparingConditionByTypeAndInitCriteria(this.types[0].name);
+      if (res.length > 0) {
+        this.defaultTypes = res;
+        this.findComparingConditionByTypeAndInitCriteria(res);
       }
     });
   }
 
-  private findComparingConditionByTypeAndInitCriteria(type: string): void {
+  private findComparingConditionByTypeAndInitCriteria(types: Type[]): void {
+    this.apiService.findComparingConditionByType(types[0].name).pipe(
+      catchError(err => {
+        console.error('Failed to load comparing conditions', err);
+        alert("An error occurred");
+        return of([]);
+      })
+    ).subscribe((res) => {
+
+      if (res.length > 0) {
+        this.initCriteria(types, res);
+      }
+    });
+  }
+
+  private findComparingConditionByType(type: string, criteria: CriteriaRequest): void {
     this.apiService.findComparingConditionByType(type).pipe(
       catchError(err => {
         console.error('Failed to load comparing conditions', err);
@@ -79,44 +94,32 @@ export class AddFilterComponent implements OnInit  {
         return of([]);
       })
     ).subscribe((res) => {
-      this.conditions = res;
-
-      if (this.conditions.length > 0) {
-        this.initCriteria(type, this.conditions[0].name);
-      }
-    });
-  }
-
-  private findComparingConditionByType(type: string): void {
-    this.apiService.findComparingConditionByType(type).pipe(
-      catchError(err => {
-        console.error('Failed to load comparing conditions', err);
-        alert("An error occurred");
-        return of([]);
-      })
-    ).subscribe((res) => {
-      this.conditions = res;
+      criteria.conditions = res;
+      criteria.condition = criteria.conditions[0].name
+      criteria.value = '';
     });
   }
 
   onTypeChange(event: any, criteria: CriteriaRequest) {
-    this.findComparingConditionByType(event.target.value);
-    criteria.value = '';
+    this.findComparingConditionByType(event.target.value, criteria);
   }
 
-  private initCriteria(type: string, condition:string): void {
+  private initCriteria(types: Type[], conditions: Condition[]): void {
     const newCriteria: CriteriaRequest = {
-      type: type,
-      condition: condition,
-      value: ''
+      type: types[0].name,
+      condition: conditions[0].name,
+      value: '',
+      conditions: conditions.map(cond => ({ ...cond })),
+      types: types.map(type => ({ ...type }))
     };
     this.criterias.push(newCriteria);
-    this.setDefaultValues(type, condition);
+    this.setDefaultValues(types, conditions);
   }
 
-  private setDefaultValues(type: string, condition: string) {
-    this.defaultType = type;
-    this.defaultCondition = condition;
+  private setDefaultValues(type: Type[], conditions: Condition[]) {
+    this.defaultType = type[0].name;
+    this.defaultCondition = conditions[0].name;
+    this.defaultConditions = conditions;
   }
 
   sendRequest(): void {
@@ -143,7 +146,9 @@ export class AddFilterComponent implements OnInit  {
     const newCriteria: CriteriaRequest = {
       type: this.defaultType,
       condition: this.defaultCondition,
-      value: ''
+      value: '',
+      conditions: this.defaultConditions.map(cond => ({ ...cond })),
+      types: this.defaultTypes.map(type => ({ ...type }))
     };
     this.criterias.push(newCriteria);
   }
@@ -162,5 +167,9 @@ export class AddFilterComponent implements OnInit  {
   isHidden(criteria: CriteriaRequest) {
     const index = this.criterias.indexOf(criteria);
     return index !== 0;
+  }
+
+  onConditionChange(event: any, criteria: CriteriaRequest) {
+    criteria.condition = event.target.value;
   }
 }
