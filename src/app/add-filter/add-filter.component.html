@@ -1,34 +1,98 @@
-<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" #filterModal id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered filtermodal-width">
     <div class="modal-content">
-      <div class="modal-header filtermodal-header">
-        <h1 class="modal-title fs-5" id="filterModalLabel">Filter</h1>
-        <button type="button" class="btn-close btn-close-white filtermodal-close" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+      <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && sendRequest()" class="feedback-form">
+        <div class="modal-header filtermodal-header">
+          <h1 class="modal-title fs-5" id="filterModalLabel">Filter</h1>
+          <button type="button" class="btn-close btn-close-white filtermodal-close" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
 
-        <div class="form-group division row" *ngFor="let criteria of criterias">
-
-          <div style="display: flex">
-            <div>
-              <select class="form-select" (change)="onTypeChange($event)">
-                <option *ngFor="let type of types" [selected]="type.name==criteria.type">{{ type.name }}</option>
-              </select>
-            </div>
-            <div style="margin-left: 3%">
-              <select class="form-select">
-                <option *ngFor="let condition of conditions" [selected]="condition.name==criteria.condition">{{ condition.name }}</option>
-              </select>
+          <div class="form-group division inserting">
+            <label for="name" class="labels">Filter name</label>
+            <input type="text"
+                   id="name"
+                   class="form-control capital input-name box-width"
+                   name="name"
+                   placeholder="Name"
+                   [(ngModel)]="model.name"
+                   #name="ngModel"
+                   pattern="^[a-zA-ZÜÕÖÄüõöä]+[a-z -üõöä]+[a-züõöä]$"
+                   minlength="3"
+                   required
+            />
+            <div *ngIf="f.submitted && name.invalid" class="invalid-input ml-10 error-width">
+              <div *ngIf="name.errors?.['required']" class="fst-italic text-danger invalid-input">Field is required
+              </div>
+              <div *ngIf="name.errors?.['minlength']" class="fst-italic text-danger invalid-input">Filter name
+                has to be atleast 3 characters long
+              </div>
+              <div *ngIf="name.errors?.['pattern']" class="fst-italic text-danger invalid-input">Invalid filter name
+              </div>
             </div>
           </div>
 
+          <div class="form-group division row" *ngFor="let criteria of criterias">
+            <div style="display: flex">
+              <label class="labels">Criteria</label>
+              <div class="box-width">
+                <select class="form-select" (change)="onTypeChange($event, criteria)" [(ngModel)]="criteria.type" name="type">
+                  <option *ngFor="let type of types" [selected]="type.name==criteria.type">{{ type.name }}</option>
+                </select>
+              </div>
+              <div class="ml-10 box-width">
+                <select class="form-select">
+                  <option *ngFor="let condition of conditions"
+                          [selected]="condition.name==criteria.condition">{{ condition.name }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="showAmount(criteria)">
+                <input type="number"
+                       id="amount"
+                       class="form-control capital input-name box-width ml-10"
+                       name="amount"
+                       placeholder="Amount"
+                       [(ngModel)]="criteria.value"
+                       #name="ngModel"
+                       required
+                />
+              </div>
+
+              <div *ngIf="showTitle(criteria)">
+                <input type="text"
+                       id="title"
+                       class="form-control capital input-name box-width ml-10"
+                       name="title"
+                       placeholder="Title"
+                       [(ngModel)]="criteria.value"
+                       #name="ngModel"
+                       required
+                />
+              </div>
+
+              <div *ngIf="showDate(criteria)">
+                <input type="date"
+                       id="date"
+                       class="form-control capital input-name box-width ml-10"
+                       name="date"
+                       placeholder="Date"
+                       [(ngModel)]="criteria.value"
+                       #name="ngModel"
+                       required
+                />
+              </div>
+
+            </div>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer filtermodal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-        <button type="button" class="btn btn-primary">SAVE</button>
-      </div>
+        <div class="modal-footer filtermodal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+          <button type="submit" class="btn btn-primary">SAVE</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

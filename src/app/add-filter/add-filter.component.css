@@ -12,3 +12,41 @@
 .filtermodal-close {
   transform: scale(0.90);
 }
+
+.filtermodal-width {
+  max-width: 700px;
+}
+
+.inserting {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.invalid-input {
+  font-size: small;
+}
+
+.ml-10 {
+  margin-left: 10px
+}
+
+.input-name {
+  max-width: fit-content;
+}
+
+.box-width {
+  width: 170px;
+  min-width: 170px;
+}
+
+.labels {
+  width: 100px;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.error-width {
+  min-width: max-content;
+}
