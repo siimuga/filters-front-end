@@ -119,6 +119,16 @@ export class AddFilterComponent  {
   }
 
   sendRequest(): void {
+    this.model.criteriaRequests = this.criterias;
+    this.apiService.sendRequest(this.model).pipe(
+      catchError((err) => {
+        console.error('Filter adding failed', err);
+        return of([]);
+      })
+    ).subscribe(
+      () => {
+      }
+    );
   }
 
   showAmount(criteria: CriteriaRequest) {

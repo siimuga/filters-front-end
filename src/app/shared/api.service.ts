@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {AllFilters} from "../all-filters/module/all-filters";
 import {Type} from './type';
 import {Condition} from './condition';
+import {FilterRequest} from './filterrequest';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class ApiService {
   private ALL_FILTERS_URL = `${this.BASE_URL}/filters`;
   private ALL_TYPES_URL = `${this.BASE_URL}/criteriaType`;
   private ALL_CONDITIONS_BY_TYPE_URL = `${this.BASE_URL}/comparingCondition/type`;
+  private ADD_FILTER_URL = `${this.BASE_URL}/filter`;
 
   constructor(private http: HttpClient) {
   }
@@ -30,6 +32,11 @@ export class ApiService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("type",type);
     return this.http.get<Condition[]>(this.ALL_CONDITIONS_BY_TYPE_URL,{params:queryParams});
+  }
+
+  sendRequest(feedback: FilterRequest) {
+    return this.http.post(this.ADD_FILTER_URL, feedback);
+
   }
 }
 
