@@ -138,4 +138,29 @@ export class AddFilterComponent implements OnInit  {
     this.criterias = [];
     this.model.name = '';
   }
+
+  addRow() {
+    const newCriteria: CriteriaRequest = {
+      type: this.defaultType,
+      condition: this.defaultCondition,
+      value: ''
+    };
+    this.criterias.push(newCriteria);
+  }
+
+  deleteRow(criteria: CriteriaRequest) {
+    const index = this.criterias.indexOf(criteria);
+    if (index > -1) {
+      this.criterias.splice(index, 1);
+    }
+  }
+
+  isDisabled() {
+    return this.criterias.length === 1;
+  }
+
+  isHidden(criteria: CriteriaRequest) {
+    const index = this.criterias.indexOf(criteria);
+    return index !== 0;
+  }
 }

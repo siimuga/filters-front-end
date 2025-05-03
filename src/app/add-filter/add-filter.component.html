@@ -33,9 +33,11 @@
             </div>
           </div>
 
-          <div class="form-group division row" *ngFor="let criteria of criterias">
+          <div class="form-group division row mb-10" *ngFor="let criteria of criterias">
             <div style="display: flex">
-              <label class="labels">Criteria</label>
+              <div class="labels">
+                <label  [hidden]="isHidden(criteria)">Criteria</label>
+              </div>
               <div class="box-width">
                 <select class="form-select" (change)="onTypeChange($event, criteria)" [(ngModel)]="criteria.type" name="type">
                   <option *ngFor="let type of types" [selected]="type.name==criteria.type">{{ type.name }}</option>
@@ -84,8 +86,15 @@
                 />
               </div>
 
+              <div class="ml-10">
+              <button type="button" class="btn btn-danger" (click)="deleteRow(criteria)" [disabled]="isDisabled()">-</button>
+              </div>
+
             </div>
 
+          </div>
+          <div class="add-btn">
+            <button type="button" class="btn btn-secondary" (click)="addRow()">+ ADD ROW</button>
           </div>
         </div>
         <div class="modal-footer filtermodal-footer">

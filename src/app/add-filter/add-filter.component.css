@@ -31,6 +31,10 @@
   margin-left: 10px
 }
 
+.mb-10 {
+  margin-bottom: 10px
+}
+
 .input-name {
   max-width: fit-content;
 }
@@ -49,4 +53,10 @@
 
 .error-width {
   min-width: max-content;
+}
+
+.add-btn {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
