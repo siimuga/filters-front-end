@@ -33,20 +33,19 @@
             </div>
           </div>
 
-          <div class="form-group division row mb-10" *ngFor="let criteria of criterias">
+          <div class="form-group division row mb-10" *ngFor="let criteria of criterias; let i = index">
             <div style="display: flex">
               <div class="labels">
                 <label  [hidden]="isHidden(criteria)">Criteria</label>
               </div>
               <div class="box-width">
-                <select class="form-select" (change)="onTypeChange($event, criteria)" [(ngModel)]="criteria.type" name="type">
-                  <option *ngFor="let type of criteria.types" [selected]="type.name==criteria.type">{{ type.name }}</option>
+                <select class="form-select" name="type{{i}}" [(ngModel)]="criteria.type" (change)="onTypeChange($event, criteria)">
+                  <option *ngFor="let type of criteria.types" [value]="type.name">{{ type.name }}</option>
                 </select>
               </div>
               <div class="ml-10 box-width">
-                <select class="form-select" name="condition" (change)="onConditionChange($event, criteria)" >
-                  <option *ngFor="let condition of criteria.conditions"
-                          [selected]="condition.name==criteria.condition">{{ condition.name }}
+                <select class="form-select" name="condition{{i}}" [(ngModel)]="criteria.condition">
+                  <option *ngFor="let condition of criteria.conditions" [value]="condition.name">{{ condition.name }}
                   </option>
                 </select>
               </div>
@@ -54,7 +53,7 @@
                 <input type="number"
                        id="amount"
                        class="form-control capital input-name box-width ml-10"
-                       name="amount"
+                       name="amount{{i}}"
                        placeholder="Amount"
                        [(ngModel)]="criteria.value"
                        required
@@ -65,7 +64,7 @@
                 <input type="text"
                        id="title"
                        class="form-control capital input-name box-width ml-10"
-                       name="title"
+                       name="title{{i}}"
                        placeholder="Title"
                        [(ngModel)]="criteria.value"
                        required
@@ -76,7 +75,7 @@
                 <input type="date"
                        id="date"
                        class="form-control capital input-name box-width ml-10"
-                       name="date"
+                       name="date{{i}}"
                        placeholder="Date"
                        [(ngModel)]="criteria.value"
                        required

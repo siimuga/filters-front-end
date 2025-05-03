@@ -168,8 +168,4 @@ export class AddFilterComponent implements OnInit  {
     const index = this.criterias.indexOf(criteria);
     return index !== 0;
   }
-
-  onConditionChange(event: any, criteria: CriteriaRequest) {
-    criteria.condition = event.target.value;
-  }
 }
