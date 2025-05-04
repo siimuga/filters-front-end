@@ -6,13 +6,15 @@ import { Modal } from 'bootstrap';
 import {AddFilterComponent} from '../add-filter/add-filter.component';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-all-filters',
   imports: [
     NgIf,
     NgForOf,
-    AddFilterComponent
+    AddFilterComponent,
+    FormsModule
   ],
   templateUrl: './all-filters.component.html',
   styleUrl: './all-filters.component.css'
@@ -20,6 +22,7 @@ import {of} from 'rxjs';
 export class AllFiltersComponent implements OnInit {
   filters: AllFilters[] = [];
   showAddFilter :boolean = false;
+  isSwitchOn:boolean = true;
 
   constructor(private apiService:ApiService) {
   }
