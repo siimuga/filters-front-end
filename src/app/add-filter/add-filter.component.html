@@ -33,62 +33,64 @@
             </div>
           </div>
 
-          <div class="form-group division row mb-10" *ngFor="let criteria of criterias; let i = index">
-            <div style="display: flex">
-              <div class="labels">
-                <label  [hidden]="isHidden(criteria)">Criteria</label>
-              </div>
-              <div class="box-width">
-                <select class="form-select" name="type{{i}}" [(ngModel)]="criteria.type" (change)="onTypeChange($event, criteria)">
-                  <option *ngFor="let type of criteria.types" [value]="type.name">{{ type.name }}</option>
-                </select>
-              </div>
-              <div class="ml-10 box-width">
-                <select class="form-select" name="condition{{i}}" [(ngModel)]="criteria.condition">
-                  <option *ngFor="let condition of criteria.conditions" [value]="condition.name">{{ condition.name }}
-                  </option>
-                </select>
-              </div>
-              <div *ngIf="showAmount(criteria)">
-                <input type="number"
-                       id="amount"
-                       class="form-control capital input-name box-width ml-10"
-                       name="amount{{i}}"
-                       placeholder="Amount"
-                       [(ngModel)]="criteria.value"
-                       required
-                />
-              </div>
+          <div id="criteriasBox" class="criterias-scroll">
+            <div class="form-group division row mb-10" *ngFor="let criteria of criterias; let i = index">
+              <div style="display: flex">
+                <div class="labels">
+                  <label  [hidden]="isHidden(criteria)">Criteria</label>
+                </div>
+                <div class="box-width">
+                  <select class="form-select" name="type{{i}}" [(ngModel)]="criteria.type" (change)="onTypeChange($event, criteria)">
+                    <option *ngFor="let type of criteria.types" [value]="type.name">{{ type.name }}</option>
+                  </select>
+                </div>
+                <div class="ml-10 box-width">
+                  <select class="form-select" name="condition{{i}}" [(ngModel)]="criteria.condition">
+                    <option *ngFor="let condition of criteria.conditions" [value]="condition.name">{{ condition.name }}
+                    </option>
+                  </select>
+                </div>
+                <div *ngIf="showAmount(criteria)">
+                  <input type="number"
+                         id="amount"
+                         class="form-control capital input-name box-width ml-10"
+                         name="amount{{i}}"
+                         placeholder="Amount"
+                         [(ngModel)]="criteria.value"
+                         required
+                  />
+                </div>
 
-              <div *ngIf="showTitle(criteria)">
-                <input type="text"
-                       id="title"
-                       class="form-control capital input-name box-width ml-10"
-                       name="title{{i}}"
-                       placeholder="Title"
-                       [(ngModel)]="criteria.value"
-                       required
-                />
-              </div>
+                <div *ngIf="showTitle(criteria)">
+                  <input type="text"
+                         id="title"
+                         class="form-control capital input-name box-width ml-10"
+                         name="title{{i}}"
+                         placeholder="Title"
+                         [(ngModel)]="criteria.value"
+                         required
+                  />
+                </div>
 
-              <div *ngIf="showDate(criteria)">
-                <input type="date"
-                       id="date"
-                       class="form-control capital input-name box-width ml-10"
-                       name="date{{i}}"
-                       placeholder="Date"
-                       [(ngModel)]="criteria.value"
-                       required
-                />
-              </div>
+                <div *ngIf="showDate(criteria)">
+                  <input type="date"
+                         id="date"
+                         class="form-control capital input-name box-width ml-10"
+                         name="date{{i}}"
+                         placeholder="Date"
+                         [(ngModel)]="criteria.value"
+                         required
+                  />
+                </div>
 
-              <div class="ml-10">
-              <button type="button" class="btn btn-danger" (click)="deleteRow(criteria)" [disabled]="isDisabled()">-</button>
-              </div>
+                <div class="ml-10">
+                  <button type="button" class="btn btn-danger" (click)="deleteRow(criteria)" [disabled]="isDisabled()">-</button>
+                </div>
 
+              </div>
             </div>
-
           </div>
+
           <div class="add-btn">
             <button type="button" class="btn btn-secondary" (click)="addRow()">+ ADD ROW</button>
           </div>

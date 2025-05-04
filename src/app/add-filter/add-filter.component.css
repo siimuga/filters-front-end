@@ -14,7 +14,7 @@
 }
 
 .filtermodal-width {
-  max-width: 700px;
+  max-width: 720px;
 }
 
 .inserting {
@@ -59,4 +59,11 @@
   margin-top: 10px;
   display: flex;
   justify-content: center;
+}
+
+.criterias-scroll {
+  height: 145px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-right: -10px;
 }
