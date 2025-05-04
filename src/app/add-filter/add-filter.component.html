@@ -1,7 +1,7 @@
 <div class="modal fade" #filterModal id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered filtermodal-width">
     <div class="modal-content">
-      <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && sendRequest()" class="feedback-form">
+      <form name="form" #f="ngForm" (ngSubmit)="hasValidValues() && f.form.valid && sendRequest()" class="feedback-form">
         <div class="modal-header filtermodal-header">
           <h1 class="modal-title fs-5" id="filterModalLabel">Filter</h1>
           <button type="button" class="btn-close btn-close-white filtermodal-close" data-bs-dismiss="modal"
@@ -22,7 +22,7 @@
                    minlength="3"
                    required
             />
-            <div *ngIf="f.submitted && name.invalid" class="invalid-input ml-10 error-width">
+            <div id="nameError" *ngIf="showNameError && f.submitted && name.invalid" class="invalid-input ml-10 error-width">
               <div *ngIf="name.errors?.['required']" class="fst-italic text-danger invalid-input">Field is required
               </div>
               <div *ngIf="name.errors?.['minlength']" class="fst-italic text-danger invalid-input">Filter name
@@ -34,18 +34,18 @@
           </div>
 
           <div id="criteriasBox" class="criterias-scroll">
-            <div class="form-group division row mb-10" *ngFor="let criteria of criterias; let i = index">
+            <div class="form-group division row mb-10" *ngFor="let criteria of criterias; let i = index" style="margin-top: 5px;">
               <div style="display: flex">
                 <div class="labels">
                   <label  [hidden]="isHidden(criteria)">Criteria</label>
                 </div>
                 <div class="box-width">
-                  <select class="form-select" name="type{{i}}" [(ngModel)]="criteria.type" (change)="onTypeChange($event, criteria)">
+                  <select class="form-select" name="type{{i}}" [(ngModel)]="criteria.type" (change)="onTypeChange($event, criteria); resetErrors()">
                     <option *ngFor="let type of criteria.types" [value]="type.name">{{ type.name }}</option>
                   </select>
                 </div>
                 <div class="ml-10 box-width">
-                  <select class="form-select" name="condition{{i}}" [(ngModel)]="criteria.condition">
+                  <select class="form-select" name="condition{{i}}" [(ngModel)]="criteria.condition" (change)="resetErrors()">
                     <option *ngFor="let condition of criteria.conditions" [value]="condition.name">{{ condition.name }}
                     </option>
                   </select>
@@ -58,6 +58,7 @@
                          placeholder="Amount"
                          [(ngModel)]="criteria.value"
                          required
+                         (change)="resetErrors()"
                   />
                 </div>
 
@@ -69,6 +70,7 @@
                          placeholder="Title"
                          [(ngModel)]="criteria.value"
                          required
+                         (change)="resetErrors()"
                   />
                 </div>
 
@@ -80,6 +82,7 @@
                          placeholder="Date"
                          [(ngModel)]="criteria.value"
                          required
+                         (change)="resetErrors()"
                   />
                 </div>
 
@@ -95,10 +98,14 @@
             <button type="button" class="btn btn-secondary" (click)="addRow()">+ ADD ROW</button>
           </div>
         </div>
-        <div class="modal-footer filtermodal-footer">
+        <div class="modal-footer filtermodal-footer position-relative justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
           <button type="submit" class="btn btn-primary">SAVE</button>
+          <div *ngIf="isInvalidValues" id="saveErrors" class="invalid-input fst-italic text-danger position-absolute filtermodal-footer-error">
+            Some criteria value fields are empty or invalid
+          </div>
         </div>
+
       </form>
     </div>
   </div>

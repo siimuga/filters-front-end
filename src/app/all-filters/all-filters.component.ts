@@ -32,7 +32,8 @@ export class AllFiltersComponent implements OnInit {
   }
 
   openModal() {
-    this.showAddFilter = true;
+    this.showAddFilter = false;
+    setTimeout(() => this.showAddFilter = true, 0);
     setTimeout(() => {
       this.addFilterComponent.loadInitialData();
       const modalEl = document.getElementById('filterModal');

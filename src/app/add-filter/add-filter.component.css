@@ -9,6 +9,10 @@
   color: white;
 }
 
+.filtermodal-footer-error {
+  transform: translateX(80%); white-space: nowrap;
+}
+
 .filtermodal-close {
   transform: scale(0.90);
 }
@@ -21,6 +25,11 @@
   display: flex;
   align-items: center;
   margin-bottom: 2%;
+}
+
+.inserting {
+  display: flex;
+  align-items: center;
 }
 
 .invalid-input {
@@ -62,7 +71,7 @@
 }
 
 .criterias-scroll {
-  height: 145px;
+  height: 149px;
   overflow-y: auto;
   overflow-x: hidden;
   margin-right: -10px;

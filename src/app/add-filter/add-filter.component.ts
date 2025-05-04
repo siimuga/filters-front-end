@@ -29,6 +29,8 @@ export class AddFilterComponent  {
   defaultCondition: string = '';
   defaultTypes: Type[] = [];
   defaultConditions: Condition[] = [];
+  isInvalidValues: boolean = false;
+  showNameError: boolean = false;
 
   @ViewChild('filterModal') filterModalRef!: ElementRef;
 
@@ -98,6 +100,7 @@ export class AddFilterComponent  {
 
   onTypeChange(event: any, criteria: CriteriaRequest) {
     this.findComparingConditionByType(event.target.value, criteria);
+    this.resetErrors();
   }
 
   private initCriteria(types: Type[], conditions: Condition[]): void {
@@ -157,6 +160,7 @@ export class AddFilterComponent  {
       types: this.defaultTypes.map(type => ({ ...type }))
     };
     this.criterias.push(newCriteria);
+    this.resetErrors();
   }
 
   deleteRow(criteria: CriteriaRequest) {
@@ -164,6 +168,7 @@ export class AddFilterComponent  {
     if (index > -1) {
       this.criterias.splice(index, 1);
     }
+    this.resetErrors();
   }
 
   isDisabled() {
@@ -173,5 +178,19 @@ export class AddFilterComponent  {
   isHidden(criteria: CriteriaRequest) {
     const index = this.criterias.indexOf(criteria);
     return index !== 0;
+  }
+
+  hasValidValues(): boolean {
+    const namePattern = /^[a-zA-Z0-9ÜÕÖÄüõöä]+[a-z0-9 \-üõöä]+[a-z0-9üõöä]$/;
+    const isNameInvalid =     this.criterias.some(c => (c.type==='Title' && !namePattern.test(c.value.trim())));
+    const hasEmptyCriteria = this.criterias.some(c => c.value.toString().trim().length === 0);
+    this.showNameError = !this.model.name || this.model.name.toString().trim().length === 0 || !namePattern.test(this.model.name.trim());
+    this.isInvalidValues = isNameInvalid || hasEmptyCriteria;
+    return !this.isInvalidValues;
+  }
+
+  resetErrors() {
+    this.isInvalidValues = false;
+    this.showNameError = false;
   }
 }
