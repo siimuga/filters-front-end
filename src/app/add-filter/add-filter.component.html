@@ -75,14 +75,13 @@
                 </div>
 
                 <div *ngIf="showDate(criteria)">
-                  <input type="date"
-                         id="date"
-                         class="form-control capital input-name box-width ml-10"
-                         name="date{{i}}"
-                         placeholder="Date"
-                         [(ngModel)]="criteria.value"
-                         required
-                         (change)="resetErrors()"
+                  <input type="text"
+                         class="form-control box-width ml-10"
+                         placeholder="Choose date"
+                         bsDatepicker
+                         [bsConfig]="datepickerConfig"
+                         [ngModel]="criteria.value ? (criteria.value | date:'dd.MM.yyyy') : null"
+                         (bsValueChange)="onDateChange($event, criteria)"
                   />
                 </div>
 

@@ -5,16 +5,22 @@ import {Type} from '../shared/type';
 import {Condition} from '../shared/condition';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {CriteriaRequest} from '../shared/criteriarequest';
 import {FormsModule} from '@angular/forms';
+import {defineLocale, enGbLocale} from 'ngx-bootstrap/chronos';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+
+defineLocale('en-gb', enGbLocale);
 
 @Component({
   selector: 'app-add-filter',
   imports: [
     NgForOf,
     NgIf,
-    FormsModule
+    FormsModule,
+    BsDatepickerModule,
+    DatePipe
   ],
   templateUrl: './add-filter.component.html',
   styleUrl: './add-filter.component.css'
@@ -183,7 +189,7 @@ export class AddFilterComponent  {
   hasValidValues(): boolean {
     const namePattern = /^[a-zA-Z0-9ÜÕÖÄüõöä]+[a-z0-9 \-üõöä]+[a-z0-9üõöä]$/;
     const isNameInvalid =     this.criterias.some(c => (c.type==='Title' && !namePattern.test(c.value.trim())));
-    const hasEmptyCriteria = this.criterias.some(c => c.value.toString().trim().length === 0);
+    const hasEmptyCriteria = this.criterias.some(c => !c.value || c.value.toString().trim().length === 0);
     this.showNameError = !this.model.name || this.model.name.toString().trim().length === 0 || !namePattern.test(this.model.name.trim());
     this.isInvalidValues = isNameInvalid || hasEmptyCriteria;
     return !this.isInvalidValues;
@@ -192,5 +198,25 @@ export class AddFilterComponent  {
   resetErrors() {
     this.isInvalidValues = false;
     this.showNameError = false;
+  }
+
+  datepickerConfig = {
+    dateInputFormat: 'DD.MM.YYYY',
+    containerClass: 'theme-blue',
+    locale: 'en-gb',
+    daysOfWeekDisabled: [],
+    showWeekNumbers: false
+  };
+
+  onDateChange(date: Date, criteria: CriteriaRequest) {
+    if (date) {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      criteria.value = `${day}.${month}.${year}`;
+    } else {
+      criteria.value = '';
+    }
+    this.resetErrors();
   }
 }
