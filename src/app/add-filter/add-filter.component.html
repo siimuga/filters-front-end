@@ -98,10 +98,17 @@
           </div>
         </div>
         <div class="modal-footer filtermodal-footer position-relative justify-content-center">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-          <button type="submit" class="btn btn-primary">SAVE</button>
-          <div *ngIf="isInvalidValues" id="saveErrors" class="invalid-input fst-italic text-danger position-absolute filtermodal-footer-error">
-            Some criteria value fields are empty or invalid
+          <div>
+          </div>
+          <div>
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">CLOSE</button>
+            <button type="submit" class="btn btn-primary">SAVE</button>
+          </div>
+          <div>
+            <div *ngIf="isInvalidValues" id="saveErrors"
+                 class="invalid-input fst-italic text-danger position-absolute filtermodal-footer-error">
+              Some criteria value fields are empty or invalid
+            </div>
           </div>
         </div>
 

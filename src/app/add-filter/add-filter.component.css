@@ -10,7 +10,18 @@
 }
 
 .filtermodal-footer-error {
-  transform: translateX(80%); white-space: nowrap;
+  align-self: anchor-center;
+}
+
+@media (max-width: 700px) {
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .filtermodal-footer {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .filtermodal-close {
@@ -25,11 +36,6 @@
   display: flex;
   align-items: center;
   margin-bottom: 2%;
-}
-
-.inserting {
-  display: flex;
-  align-items: center;
 }
 
 .invalid-input {
@@ -71,8 +77,54 @@
 }
 
 .criterias-scroll {
-  height: 149px;
+  height: 159px;
   overflow-y: auto;
   overflow-x: hidden;
   margin-right: -10px;
+}
+
+@media (max-width: 800px) {
+  ::ng-deep bs-datepicker-container {
+    left: -20% !important;
+  }
+}
+
+@media (max-width: 735px) {
+  .box-width {
+    width: 160px;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 700px) {
+  .box-width {
+    width: 150px;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 680px) {
+  .box-width {
+    width: 140px;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 624px) {
+  ::ng-deep bs-datepicker-container {
+    left: -45% !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .criterias-scroll {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 738px) {
+  .modal-dialog {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
 }
