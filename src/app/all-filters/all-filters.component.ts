@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from "../shared/api.service";
 import {AllFilters} from './module/all-filters';
 import {NgForOf, NgIf} from '@angular/common';
@@ -25,6 +25,7 @@ export class AllFiltersComponent implements OnInit {
   filters: AllFilters[] = [];
   showAddFilter :boolean = false;
   showAddFilterBox :boolean = false;
+  showSuccessAlert :boolean = false;
   isSwitchOn:boolean = true;
 
   constructor(private apiService:ApiService) {
@@ -41,6 +42,7 @@ export class AllFiltersComponent implements OnInit {
   }
 
   openAddFilterl() {
+    this.showSuccessAlert = false;
     if (this.isSwitchOn) {
       this.showAddFilter = false;
       setTimeout(() => this.showAddFilter = true, 0);
@@ -76,5 +78,19 @@ export class AllFiltersComponent implements OnInit {
 
   onCloseAddFilterBox() {
     this.showAddFilterBox = false;
+  }
+
+  onCloseAddFilterModal() {
+    this.showAddFilter = false;
+  }
+
+  onCloseAfterSent() {
+    this.showAddFilterBox = false;
+    this.showAddFilter = false;
+    this.findAllFilters();
+    this.showSuccessAlert = true;
+    setTimeout(() => {
+      this.showSuccessAlert = false;
+    }, 3000);
   }
 }

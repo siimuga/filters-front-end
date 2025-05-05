@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ApiService} from '../shared/api.service';
 import {FilterRequest} from '../shared/filterrequest';
 import {Type} from '../shared/type';
@@ -39,6 +39,7 @@ export class AddFilterComponent  {
   showNameError: boolean = false;
 
   @ViewChild('filterModal') filterModalRef!: ElementRef;
+  @Output() sentAndCloseEvent = new EventEmitter<void>();
 
   ngAfterViewInit() {
     const modalEl = this.filterModalRef.nativeElement;
@@ -136,8 +137,22 @@ export class AddFilterComponent  {
       })
     ).subscribe(
       () => {
+          this.deleteFilter();
+          this.sentAndCloseEvent.emit();
+          this.removeModalBackdrop();
+          console.log('Request is sent and modal is closed');
       }
     );
+  }
+
+  private removeModalBackdrop(): void {
+    const backdrop = document.querySelector('.modal-backdrop');
+    if (backdrop) {
+      backdrop.remove();
+    }
+
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = 'auto';
   }
 
   showAmount(criteria: CriteriaRequest) {

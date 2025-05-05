@@ -1,7 +1,7 @@
 <div class="modal fade" #filterModal id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered filtermodal-width">
     <div class="modal-content">
-      <form name="form" #f="ngForm" (ngSubmit)="hasValidValues() && f.form.valid && sendRequest()" class="feedback-form">
+      <form name="form" #f="ngForm" (ngSubmit)="hasValidValues() && !showNameError && sendRequest()" class="feedback-form">
         <div class="modal-header filtermodal-header">
           <h1 class="modal-title fs-5" id="filterModalLabel">Filter</h1>
           <button type="button" class="btn-close btn-close-white filtermodal-close" data-bs-dismiss="modal"

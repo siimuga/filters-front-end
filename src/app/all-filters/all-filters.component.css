@@ -36,8 +36,17 @@
   overflow: hidden;
 }
 
+.alert-width {
+  max-width: 50%;
+}
+
+.alert-width svg {
+  width: 1rem;
+  height: 1rem;
+}
+
 @media (max-width: 1224px) {
-  .table-fix {
+  .table-fix, .alert-width {
     max-width: 90% !important;
   }
 }

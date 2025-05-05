@@ -1,3 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
+  </symbol>
+</svg>
+
 <p class="fs-2 fw-semibold text-center">Homepage of filters</p>
 
 <div *ngIf="filters.length===0"   class="fs-5 fw-semibold text-center">No filters to display</div>
@@ -13,7 +19,13 @@
       <label class="form-check-label" for="switchCheckReverse">Add filter opens in modal</label>
     </div>
   </div>
-  <app-add-filter-box *ngIf="!isSwitchOn && showAddFilterBox" (closeEvent)="onCloseAddFilterBox()"></app-add-filter-box>
+  <div *ngIf="showSuccessAlert" class="alert alert-success d-flex align-items-center mx-auto text-center alert-width" role="alert">
+    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+    <div>
+      New filter successfully added
+    </div>
+  </div>
+  <app-add-filter-box *ngIf="!isSwitchOn && showAddFilterBox" (closeEvent)="onCloseAddFilterBox()" (sentAndCloseEvent)="onCloseAfterSent()"></app-add-filter-box>
   <div class="allfilters">
     <table class="table table-hover table-display table-secondary table-fix mb-10 rounded-table" >
       <thead>
@@ -53,6 +65,6 @@
   </div>
 </div>
 
-<app-add-filter *ngIf="isSwitchOn && showAddFilter"></app-add-filter>
+<app-add-filter *ngIf="isSwitchOn && showAddFilter" (close)="onCloseAddFilterModal()" (sentAndCloseEvent)="onCloseAfterSent()"></app-add-filter>
 
 

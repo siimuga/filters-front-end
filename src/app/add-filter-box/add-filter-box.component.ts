@@ -40,6 +40,7 @@ export class AddFilterBoxComponent {
   showFilterBox = true;
 
   @Output() closeEvent = new EventEmitter<void>();
+  @Output() sentAndCloseEvent = new EventEmitter<void>();
 
   constructor(private apiService: ApiService) {
   }
@@ -49,6 +50,13 @@ export class AddFilterBoxComponent {
     this.deleteFilter();
     this.closeEvent.emit();
     console.log('Box is closed');
+  }
+
+  sentAndCloseBox() {
+    this.showFilterBox = false;
+    this.deleteFilter();
+    this.sentAndCloseEvent.emit();
+    console.log('Request is sent and box is closed');
   }
 
   loadInitialData(): void {
@@ -131,6 +139,7 @@ export class AddFilterBoxComponent {
       })
     ).subscribe(
       () => {
+        this.sentAndCloseBox();
       }
     );
   }
