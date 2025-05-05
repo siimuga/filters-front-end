@@ -1,0 +1,147 @@
+.filtermodal-footer {
+  justify-content: center;
+  background-color: #efefef;
+}
+
+.filtermodal-header {
+  background-color: #41aebd;
+  padding: 8px 12px;
+  color: white;
+}
+
+.filtermodal-footer-error {
+  align-self: anchor-center;
+}
+
+.box-body {
+padding: 1rem;
+}
+
+.box-border {
+  border-style: solid;
+  border-color: #41aebd;
+  border-radius: 10px;
+  border-width: 2px;
+}
+
+.border-radius-top {
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+}
+
+.border-radius-bottom {
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+@media (max-width: 700px) {
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .filtermodal-footer {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.filtermodal-width {
+  max-width: 720px;
+}
+
+.inserting {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.invalid-input {
+  font-size: small;
+}
+
+.ml-10 {
+  margin-left: 10px
+}
+
+.mb-10 {
+  margin-bottom: 10px
+}
+
+.input-name {
+  max-width: fit-content;
+}
+
+.box-width {
+  width: 170px;
+  min-width: 170px;
+}
+
+.labels {
+  width: 100px;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.error-width {
+  min-width: max-content;
+}
+
+.add-btn {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.criterias-scroll {
+  height: 159px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-right: -10px;
+}
+
+@media (max-width: 800px) {
+  ::ng-deep bs-datepicker-container {
+    left: -20% !important;
+  }
+}
+
+@media (max-width: 735px) {
+  .box-width {
+    width: 160px;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 700px) {
+  .box-width {
+    width: 150px;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 680px) {
+  .box-width {
+    width: 140px;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 624px) {
+  ::ng-deep bs-datepicker-container {
+    left: -45% !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .criterias-scroll {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 738px) {
+  .modal-dialog {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
+}

@@ -1,0 +1,114 @@
+<div *ngIf="showFilterBox" class="filter-box-wrapper mb-10">
+  <div class="modal-dialog modal-dialog-centered filtermodal-width">
+    <div class="modal-content box-border">
+      <form name="form" #f="ngForm" (ngSubmit)="hasValidValues() && f.form.valid && sendRequest()" class="feedback-form">
+        <div class="modal-header filtermodal-header border-radius-top">
+          <h1 class="modal-title fs-5">Filter</h1>
+          <button type="button" class="btn-close btn-close-white" (click)="closeBox()"></button>
+        </div>
+        <div class="box-body">
+
+          <div class="form-group division inserting">
+            <label for="name" class="labels">Filter name</label>
+            <input type="text"
+                   id="name"
+                   class="form-control capital input-name box-width"
+                   name="name"
+                   placeholder="Name"
+                   [(ngModel)]="model.name"
+                   #name="ngModel"
+                   pattern="^[a-zA-ZÜÕÖÄüõöä]+[a-z -üõöä]+[a-züõöä]$"
+                   minlength="3"
+                   required
+            />
+            <div id="nameError" *ngIf="showNameError && f.submitted && name.invalid" class="invalid-input ml-10 error-width">
+              <div *ngIf="name.errors?.['required']" class="fst-italic text-danger invalid-input">Field is required
+              </div>
+              <div *ngIf="name.errors?.['minlength']" class="fst-italic text-danger invalid-input">Filter name
+                has to be atleast 3 characters long
+              </div>
+              <div *ngIf="name.errors?.['pattern']" class="fst-italic text-danger invalid-input">Invalid filter name
+              </div>
+            </div>
+          </div>
+
+          <div id="criteriasBox" class="criterias-scroll">
+            <div class="form-group division row mb-10" *ngFor="let criteria of criterias; let i = index" style="margin-top: 5px;">
+              <div style="display: flex">
+                <div class="labels">
+                  <label  [hidden]="isHidden(criteria)">Criteria</label>
+                </div>
+                <div class="box-width">
+                  <select class="form-select" name="type{{i}}" [(ngModel)]="criteria.type" (change)="onTypeChange($event, criteria); resetErrors()">
+                    <option *ngFor="let type of criteria.types" [value]="type.name">{{ type.name }}</option>
+                  </select>
+                </div>
+                <div class="ml-10 box-width">
+                  <select class="form-select" name="condition{{i}}" [(ngModel)]="criteria.condition" (change)="resetErrors()">
+                    <option *ngFor="let condition of criteria.conditions" [value]="condition.name">{{ condition.name }}
+                    </option>
+                  </select>
+                </div>
+                <div *ngIf="showAmount(criteria)">
+                  <input type="number"
+                         id="amount"
+                         class="form-control capital input-name box-width ml-10"
+                         name="amount{{i}}"
+                         placeholder="Amount"
+                         [(ngModel)]="criteria.value"
+                         required
+                         (change)="resetErrors()"
+                  />
+                </div>
+
+                <div *ngIf="showTitle(criteria)">
+                  <input type="text"
+                         id="title"
+                         class="form-control capital input-name box-width ml-10"
+                         name="title{{i}}"
+                         placeholder="Title"
+                         [(ngModel)]="criteria.value"
+                         required
+                         (change)="resetErrors()"
+                  />
+                </div>
+
+                <div *ngIf="showDate(criteria)">
+                  <input type="text"
+                         class="form-control box-width ml-10"
+                         placeholder="Choose date"
+                         bsDatepicker
+                         [bsConfig]="datepickerConfig"
+                         [ngModel]="criteria.value ? (criteria.value | date:'dd.MM.yyyy') : null"
+                         (bsValueChange)="onDateChange($event, criteria)"
+                  />
+                </div>
+
+                <div class="ml-10">
+                  <button type="button" class="btn btn-danger" (click)="deleteRow(criteria)" [disabled]="isDisabled()">-</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="add-btn">
+            <button type="button" class="btn btn-secondary" (click)="addRow()">+ ADD ROW</button>
+          </div>
+        </div>
+        <div class="modal-footer filtermodal-footer position-relative justify-content-center box-body border-radius-bottom">
+          <div>
+            <button type="button" class="btn btn-secondary me-2" (click)="closeBox()">CLOSE</button>
+            <button type="submit" class="btn btn-primary">SAVE</button>
+          </div>
+          <div>
+            <div *ngIf="isInvalidValues" id="saveErrors"
+                 class="invalid-input fst-italic text-danger position-absolute filtermodal-footer-error ml-10">
+              Some criteria value fields are empty or invalid
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
