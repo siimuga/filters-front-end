@@ -8,6 +8,7 @@ import {AddFilterBoxComponent} from '../add-filter-box/add-filter-box.component'
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {FormsModule} from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-all-filters',
@@ -16,7 +17,8 @@ import {FormsModule} from '@angular/forms';
     NgForOf,
     AddFilterComponent,
     AddFilterBoxComponent,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   templateUrl: './all-filters.component.html',
   styleUrl: './all-filters.component.css'
@@ -27,6 +29,8 @@ export class AllFiltersComponent implements OnInit {
   showAddFilterBox :boolean = false;
   showSuccessAlert :boolean = false;
   isSwitchOn:boolean = true;
+  p: number = 1;
+  itemsPerPage: number = 5;
 
   constructor(private apiService:ApiService) {
   }

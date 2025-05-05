@@ -45,6 +45,10 @@
   height: 1rem;
 }
 
+::ng-deep .ngx-pagination .current {
+  border-radius: 7px;
+}
+
 @media (max-width: 1224px) {
   .table-fix, .alert-width {
     max-width: 90% !important;
