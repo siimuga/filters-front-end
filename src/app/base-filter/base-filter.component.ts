@@ -115,17 +115,17 @@ export class BaseFilterComponent {
     this.findAllTypes();
   }
 
-  onTypeChange(event: any, criteria: CriteriaRequest) {
+  protected onTypeChange(event: any, criteria: CriteriaRequest) {
     this.findComparingConditionByType(event.target.value, criteria);
     this.resetErrors();
   }
 
-  resetErrors() {
+  protected resetErrors() {
     this.isInvalidValues = false;
     this.showNameError = false;
   }
 
-  onDateChange(date: Date, criteria: CriteriaRequest) {
+  protected onDateChange(date: Date, criteria: CriteriaRequest) {
     if (date) {
       const day = String(date.getDate()).padStart(2, '0');
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -137,7 +137,7 @@ export class BaseFilterComponent {
     this.resetErrors();
   }
 
-  deleteRow(criteria: CriteriaRequest) {
+  protected deleteRow(criteria: CriteriaRequest) {
     const index = this.criterias.indexOf(criteria);
     if (index > -1) {
       this.criterias.splice(index, 1);
@@ -145,12 +145,12 @@ export class BaseFilterComponent {
     this.resetErrors();
   }
 
-  deleteFilter() {
+  protected deleteFilter() {
     this.criterias = [];
     this.model.name = '';
   }
 
-  addRow() {
+  protected addRow() {
     const newCriteria: CriteriaRequest = {
       type: this.defaultType,
       condition: this.defaultCondition,
@@ -162,11 +162,11 @@ export class BaseFilterComponent {
     this.resetErrors();
   }
 
-  isDisabled() {
+  protected isDisabled() {
     return this.criterias.length === 1;
   }
 
-  isHidden(criteria: CriteriaRequest) {
+  protected isHidden(criteria: CriteriaRequest) {
     const index = this.criterias.indexOf(criteria);
     return index !== 0;
   }
