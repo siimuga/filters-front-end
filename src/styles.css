@@ -1,2 +1,133 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import "ngx-bootstrap/datepicker/bs-datepicker.css";
+
+.ngx-pagination .current {
+  border-radius: 7px;
+}
+
+.invalid-input {
+  font-size: small;
+}
+
+.mt-5 {
+  margin-top: 5px !important;
+}
+
+.ml-10 {
+  margin-left: 10px
+}
+
+.mb-10 {
+  margin-bottom: 10px
+}
+
+.error-width {
+  min-width: max-content;
+}
+
+.input-name {
+  max-width: fit-content;
+}
+
+.filtermodal-width {
+  max-width: 720px;
+}
+
+.box-width {
+  width: 170px;
+  min-width: 170px;
+}
+
+.filtermodal-footer {
+  justify-content: center;
+  background-color: #efefef;
+}
+
+.filtermodal-header {
+  background-color: #41aebd;
+  padding: 8px 12px;
+  color: white;
+}
+
+.inserting {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.add-btn {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.labels {
+  width: 100px;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.criterias-scroll {
+  height: 159px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-right: -10px;
+}
+
+@media (max-width: 800px) {
+  bs-datepicker-container {
+    left: -20% !important;
+  }
+}
+
+@media (max-width: 624px) {
+  bs-datepicker-container {
+    left: -45% !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .criterias-scroll {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 738px) {
+  .modal-dialog {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
+}
+
+@media (max-width: 735px) {
+  .box-width {
+    width: 160px !important;
+    min-width: 160px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .box-width {
+    width: 150px !important;
+    min-width: 150px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .box-width {
+    width: 140px !important;
+    min-width: 140px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .filtermodal-footer {
+    flex-direction: row;
+    align-items: center;
+  }
+}
