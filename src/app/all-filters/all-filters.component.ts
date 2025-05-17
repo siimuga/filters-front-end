@@ -3,7 +3,7 @@ import {ApiService} from "../shared/api.service";
 import {AllFilters} from './module/all-filters';
 import {NgForOf, NgIf} from '@angular/common';
 import { Modal } from 'bootstrap';
-import {AddFilterComponent} from '../add-filter/add-filter.component';
+import {AddFilterModalComponent} from '../add-filter-modal/add-filter-modal.component';
 import {AddFilterBoxComponent} from '../add-filter-box/add-filter-box.component';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -15,7 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   imports: [
     NgIf,
     NgForOf,
-    AddFilterComponent,
+    AddFilterModalComponent,
     AddFilterBoxComponent,
     FormsModule,
     NgxPaginationModule
@@ -35,8 +35,8 @@ export class AllFiltersComponent implements OnInit {
   constructor(private apiService:ApiService) {
   }
 
-  @ViewChild(AddFilterComponent)
-  addFilterComponent!: AddFilterComponent;
+  @ViewChild(AddFilterModalComponent)
+  addFilterComponent!: AddFilterModalComponent;
 
   @ViewChild(AddFilterBoxComponent)
   addFilterBoxComponent!: AddFilterBoxComponent;

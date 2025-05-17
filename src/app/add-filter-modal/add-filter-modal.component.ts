@@ -19,10 +19,10 @@ defineLocale('en-gb', enGbLocale);
     BsDatepickerModule,
     DatePipe
   ],
-  templateUrl: './add-filter.component.html',
-  styleUrl: './add-filter.component.css'
+  templateUrl: './add-filter-modal.component.html',
+  styleUrl: './add-filter-modal.component.css'
 })
-export class AddFilterComponent extends BaseFilterComponent  {
+export class AddFilterModalComponent extends BaseFilterComponent  {
 
   @ViewChild('filterModal') filterModalRef!: ElementRef;
   @Output() sentAndCloseEvent = new EventEmitter<void>();
