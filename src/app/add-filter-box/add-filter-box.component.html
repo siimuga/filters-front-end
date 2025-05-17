@@ -101,9 +101,9 @@
             <button type="button" class="btn btn-secondary me-2" (click)="closeBox()">CLOSE</button>
             <button type="submit" class="btn btn-primary">SAVE</button>
           </div>
-          <div>
+          <div class="filtermodal-footer-error">
             <div *ngIf="isInvalidValues" id="saveErrors"
-                 class="invalid-input fst-italic text-danger position-absolute filtermodal-footer-error ml-10">
+                 class="invalid-input fst-italic text-danger position-absolute ml-10">
               Some criteria value fields are empty or invalid
             </div>
           </div>

@@ -21,6 +21,10 @@
   margin-bottom: 10px !important;
 }
 
+.modal-backdrop {
+  height: 100% !important;
+}
+
 .error-width {
   min-width: max-content;
 }
@@ -41,6 +45,10 @@
 .filtermodal-footer {
   justify-content: center;
   background-color: #efefef;
+}
+
+.filtermodal-footer-error {
+  margin-bottom: 25px;
 }
 
 .filtermodal-header {
@@ -129,5 +137,9 @@
   .filtermodal-footer {
     flex-direction: row;
     align-items: center;
+  }
+
+  .filtermodal-footer-error {
+    margin-bottom: 40px;
   }
 }
